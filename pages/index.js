@@ -26,28 +26,26 @@ const App = () => {
     setEditingTitle("");
   };
 
-  const recursivelyUpdateItems = (item, sourceIndex) => {
-    const { depth, index } = showEditModalFor;
-
-    if (depth === item.depth && sourceIndex === index) {
+  const recursivelyUpdateItems = (item) => {
+    if (item.id === showEditModalFor.id) {
       return { ...item, text: editingItemTitle };
     }
 
-    if (depth !== item.depth || sourceIndex !== index) {
-      return {
-        ...item,
-        children: item.children?.map(recursivelyUpdateItems) ?? [],
-      };
+    if (item.children?.length > 0) {
+      return { ...item, children: item.children.map(recursivelyUpdateItems) };
     }
 
-    return {
-      ...item,
-      children: item.children?.map(recursivelyUpdateItems) ?? [],
-    };
+    return item;
   };
 
   const renderEditModal = () => (
-    <Modal show={true} onHide={() => {}} backdrop="static" keyboard={false}>
+    <Modal
+      show={true}
+      onHide={() => {
+        setShowEditModalFor(null);
+      }}
+      backdrop="static"
+    >
       <Modal.Header closeButton>
         <Modal.Title>Edit {showEditModalFor.type}</Modal.Title>
       </Modal.Header>
@@ -181,7 +179,6 @@ const App = () => {
           items={items}
           onChange={(e) => setItems(e.items)}
           renderItem={renderItem}
-          // handler={<span style={handlerStyles} />}
         />
       </div>
     </>
