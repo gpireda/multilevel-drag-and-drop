@@ -28,7 +28,7 @@ const App = () => {
 
   const recursivelyUpdateItems = (item) => {
     if (item.id === showEditModalFor.id) {
-      return { ...item, text: editingItemTitle };
+      return { ...item, fromFramework: false, text: editingItemTitle };
     }
 
     if (item.children?.length > 0) {
