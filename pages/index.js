@@ -91,7 +91,12 @@ const App = () => {
   );
 
   const renderItem = ({ depth, index, item }) => (
-    <div style={itemStyles}>
+    <div
+      style={{
+        ...itemStyles,
+        backgroundColor: item.type === "topic" ? "#e9e9e9" : "#FFF",
+      }}
+    >
       <div
         style={{
           display: "flex",
@@ -99,7 +104,7 @@ const App = () => {
           justifyContent: "space-between",
         }}
       >
-        <div style={{ display: "flex", marginBlockEnd: "8px" }}>
+        <div style={{ display: "flex" }}>
           {item.type === "topic" && (
             <Image
               alt=""
@@ -133,6 +138,7 @@ const App = () => {
                   borderRadius: "4px",
                   backgroundColor: "#fff",
                   color: "#4992FF",
+                  fontSize: "12px",
                   padding: "4px 8px",
                   marginInlineEnd: "8px",
                 }}
@@ -146,6 +152,7 @@ const App = () => {
                   borderRadius: "4px",
                   backgroundColor: "#4992FF",
                   color: "#fff",
+                  fontSize: "12px",
                   padding: "4px 8px",
                 }}
               >
@@ -175,6 +182,8 @@ const App = () => {
       {showEditModalFor && renderEditModal()}
 
       <div style={containerStyles}>
+        <p style={{ fontSize: "25px", marginBottom: "5px" }}>Currículo</p>
+
         <Nestable
           items={items}
           onChange={(e) => setItems(e.items)}
